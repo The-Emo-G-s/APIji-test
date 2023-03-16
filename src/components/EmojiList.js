@@ -25,7 +25,9 @@ const EmojiList = () => {
     words[i] = /*add code here to fix possessives*/word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-  return words.join(' ');
+  const label = words.join(' ');
+
+	return label.replace(' S ', `'s `)
 }
 
 
