@@ -17,12 +17,23 @@ const EmojiList = () => {
 		fetchEmojis();
 	}, [])
 
+	function makeTitle(slug) {
+  var words = slug.split('-');
+
+  for (var i = 0; i < words.length; i++) {
+    var word = words[i];
+    words[i] = /*add code here to fix possessives*/word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
+  return words.join(' ');
+}
+
 
 	return (
 		<ul>
 			{list.map((emoji)=> {
 				return (
-					<li key={emoji.slug}>{emoji.character}</li>
+					<li key={emoji.slug}>{emoji.character} {makeTitle(emoji.slug)}</li>
 				)
 			})}
 		</ul>
