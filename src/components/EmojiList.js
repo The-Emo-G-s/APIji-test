@@ -8,7 +8,15 @@ const EmojiList = () => {
 		const fetchEmojis = async()=> {
 			try {
 				const res = await api.get('/emojis?access_key=1964210b221736f081d59668e9afaabcbf450755');
-				setList(res.data);
+				setList(res.data.filter(emoji => emoji.slug[0] !== 'e' || emoji.slug.split('-')[0].length > 3));
+			} catch (err) {
+
+			}
+		};
+		const fetchAnimalBugEmojis = async()=> {
+			try {
+				const res = await api.get('/emojis?access_key=1964210b221736f081d59668e9afaabcbf450755');
+				setList(res.data.filter(emoji => (emoji.slug[0] !== 'e' || emoji.slug.split('-')[0].length > 3) && emoji.subGroup === 'animal-bug'));
 			} catch (err) {
 
 			}
@@ -16,13 +24,23 @@ const EmojiList = () => {
 		const fetchAnimalEmojis = async()=> {
 			try {
 				const res = await api.get('/categories/animals-nature?access_key=1964210b221736f081d59668e9afaabcbf450755');
-				setList(res.data);
+				setList(res.data.filter(emoji => emoji.slug[0] !== 'e' || emoji.slug.split('-')[0].length > 3));
 			} catch (err) {
 
 			}
 		};
+		/*LAME
+		const searchFoodEmojis = async()=> {
+			try {
+				const res = await api.get('/emojis?search=food&access_key=1964210b221736f081d59668e9afaabcbf450755');
+				setList(res.data.filter(emoji => emoji.slug[0] !== 'e' || emoji.slug.split('-')[0].length > 3));
+			} catch (err) {
 
-		fetchAnimalEmojis();
+			}
+		};
+		✅*/
+
+		fetchAnimalBugEmojis();
 	}, [])
 
 	function makeTitle(slug) {
@@ -42,9 +60,9 @@ const EmojiList = () => {
 	return (
 		<ul>
 			{list.map((emoji)=> {
-				return (
-					<li key={emoji.slug}>{emoji.character} {makeTitle(emoji.slug)}</li>
-				)
+					return (
+						<li key={emoji.slug}>{emoji.character} {makeTitle(emoji.slug)}</li>
+					)
 			})}
 		</ul>
 	)
