@@ -7,14 +7,22 @@ const EmojiList = () => {
 	useEffect(()=> {
 		const fetchEmojis = async()=> {
 			try {
-				const res = await api.get('');
+				const res = await api.get('/emojis?access_key=1964210b221736f081d59668e9afaabcbf450755');
+				setList(res.data);
+			} catch (err) {
+
+			}
+		};
+		const fetchAnimalEmojis = async()=> {
+			try {
+				const res = await api.get('/categories/animals-nature?access_key=1964210b221736f081d59668e9afaabcbf450755');
 				setList(res.data);
 			} catch (err) {
 
 			}
 		};
 
-		fetchEmojis();
+		fetchAnimalEmojis();
 	}, [])
 
 	function makeTitle(slug) {
